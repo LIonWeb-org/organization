@@ -1,11 +1,9 @@
-include::../shared/issue-footnotes.adoc[]
+include::../../shared/issue-footnotes.adoc[]
 
 :m3: ../metametamodel/metametamodel
-:refarch: ../reference-architecture/reference-architecture
-:roadmap: ../roadmap/roadmap
 :fn-mof: footnote:mof[https://en.wikipedia.org/wiki/Meta-Object_Facility[Meta-Object Facility], also known as M3 model]
 
-= LionWeb Serialization Format
+= LionWeb Serialization Format Version 2023.1
 :toc: preamble
 :toclevels: 3
 
@@ -208,7 +206,7 @@ NOTE: The referred *node* can be contained in the processed document, but also c
 Each *annotation* MUST be a _string_.
 It adheres to <<{m3}.adoc#identifiers, Identifier spec>>, and refers to the *id* of the contained annotation *node*.
 
-NOTE: Each *annotation* element is the inverse relation of a *parent*.{fn-org150}
+NOTE: Each *annotation* element is the inverse relation of a *parent*.
 
 NOTE: The annotation *node* can be contained in the processed document, but also can be outside the processed document (i.e. not contained in the processed document).
 
@@ -428,8 +426,7 @@ This section lists all versions as they appear in <<SerializationChunk.serializa
 === 2023.1
 Technical name: `2023.1`
 
-Initial version.
-Refer to <<{roadmap}.adoc#release-2023.1, roadmap>> for details.
+xref:./../index.adoc[Initial version.]
 
 [[json-schema]]
 == JSON Schema for serialization
@@ -437,81 +434,3 @@ Refer to <<{roadmap}.adoc#release-2023.1, roadmap>> for details.
 ----
 include::serialization.schema.json[]
 ----
-
-[[possible-values]]
-== Possible values for `properties`, `containments`, and `references`
-Only bold entries are valid.{fn-java33}
-
-[%header,cols="1a,1,1,1"]
-|===
-|1 A +
-Contents
-|B +
-``properties: {``_ _ _``}``
-|C +
-``containments: {``_ _ _``}``
-|D  +
-``references: {``_ _ _``}``
-
-|2 `"a": "b"`
-|*property with id `a` has value `b`*
-.4+.^|`containments` value must be array
-.4+.^|`references` value must be array
-
-|3 `"c": ""`
-|*property with id `c` has value (empty string)*
-
-|4 `"d": " "`
-|*property with id `d` has value ` `(one space)*
-
-|5 `"e": null`
-|*property with id `e` has no value*
-
-|6 (key `f` not present)
-|*property with id `f` has no value*
-|*containment with id `f` does not contain any nodes*
-|*reference with id `f` does not point to any nodes*
-
-|7 `"g": []`
-.9+.^|`properties` value must be string
-|*containment with id `g` does not contain any nodes*
-|*reference with id `g` does not point to any nodes*
-
-|8 `"h": [ "i" ]`
-|*containment with id `h` contains node with id`i`*
-|`references` value array element must be object
-
-|9
-
-[source%nowrap]
-----
-"j": [
- {
-   "resolveInfo": "k",
-   "reference": "l"
- }
-]
-----
-.2+.^|`containments` value array element must be string
-|*reference with id `j` points to node with id `l`, re-binding supported by text `k`*
-
-|10 `"m": [ null ]`
-|`references` value array element must be an object
-
-|11 `"n": true`
-.5+.^|`containments` value must be array
-.5+.^|`references` value must be array
-
-|12 `"o": 12`
-
-|13 `"p": 34.56`
-
-|14 `"q": {}`
-
-|15 `"r": {`...`}`
-
-|16 `"s": foo`
-3.2+^.^|JSON syntax error
-
-|17 `"t": undefined`
-|===
