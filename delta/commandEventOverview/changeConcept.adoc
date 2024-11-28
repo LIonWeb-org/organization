@@ -1,0 +1,14 @@
+|
+[plantuml, changeConcept-before, svg]
+----
+!include commandEventOverviewStyle.puml
+
+class "node:<color #red>oldConcept</color>"
+----
+|
+[plantuml, changeConcept-after, svg]
+----
+!include commandEventOverviewStyle.puml
+
+class "node:<color #blue>newConcept</color>"
+----
